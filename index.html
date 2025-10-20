@@ -1,545 +1,198 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оплата БОТ MINES</title>
+    <title>SKYPAY - Безопасная оплата</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a237e 0%, #311b92 100%);
+            color: white;
             min-height: 100vh;
-            padding: 10px;
+            padding: 20px;
         }
-
+        
         .container {
-            max-width: 400px;
+            max-width: 100%;
             margin: 0 auto;
         }
-
+        
         .header {
             text-align: center;
-            margin-bottom: 20px;
-            color: white;
-            padding: 15px;
+            margin-bottom: 30px;
         }
-
-        .header h1 {
-            font-size: 22px;
-            margin-bottom: 8px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header .time {
-            font-size: 13px;
-            opacity: 0.8;
-        }
-
-        .card {
-            background: white;
-            border-radius: 18px;
-            padding: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            margin-bottom: 15px;
-        }
-
-        .product-info {
-            text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .product-name {
-            font-size: 18px;
+        
+        .logo {
+            font-size: 32px;
             font-weight: bold;
-            color: #2d3748;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #00bcd4, #00e676);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
             margin-bottom: 5px;
         }
-
-        .product-price {
-            font-size: 15px;
-            color: #718096;
+        
+        .features {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
         }
-
-        .payment-details {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 18px;
-            margin-bottom: 20px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .bank-card {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-            color: white;
-            padding: 18px;
-            border-radius: 12px;
-            text-align: center;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 12px rgba(238, 90, 36, 0.25);
-        }
-
-        .card-number {
-            font-size: 17px;
-            font-weight: bold;
-            letter-spacing: 1.5px;
-            margin-bottom: 8px;
-            font-family: 'Courier New', monospace;
-            word-spacing: 4px;
-        }
-
-        .bank-name {
-            font-size: 13px;
-            opacity: 0.9;
-            font-weight: 500;
-        }
-
-        .instructions {
-            text-align: center;
-            color: #4a5568;
-            font-size: 13px;
-            line-height: 1.4;
-            padding: 0 10px;
-        }
-
-        .menu {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-bottom: 15px;
-        }
-
-        .menu-item {
-            padding: 16px 18px;
-            border-bottom: 1px solid #f1f5f9;
+        
+        .feature-item {
             display: flex;
             align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
         }
-
-        .menu-item:last-child {
-            border-bottom: none;
-        }
-
-        .menu-item:active {
-            background: #f7fafc;
-            transform: scale(0.98);
-        }
-
-        .menu-icon {
-            width: 22px;
-            height: 22px;
-            margin-right: 12px;
-            background: #667eea;
-            border-radius: 6px;
+        
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #00bcd4, #00e676);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            margin-right: 15px;
             font-weight: bold;
-            font-size: 12px;
         }
-
-        .menu-text {
+        
+        .feature-text {
             flex: 1;
-            font-size: 15px;
-            color: #4a5568;
-            font-weight: 500;
         }
-
-        .menu-arrow {
-            color: #cbd5e0;
-            font-size: 16px;
+        
+        .feature-title {
             font-weight: bold;
+            margin-bottom: 5px;
         }
-
-        .pay-button {
-            background: linear-gradient(135deg, #48bb78, #38a169);
-            color: white;
-            border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: bold;
-            width: 100%;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(72, 187, 120, 0.25);
-            transition: all 0.2s ease;
-            margin-top: 15px;
-        }
-
-        .pay-button:active {
-            transform: scale(0.96);
-            box-shadow: 0 2px 8px rgba(72, 187, 120, 0.3);
-        }
-
-        .screenshot-section {
-            margin-top: 15px;
-        }
-
-        .upload-btn {
-            background: #4299e1;
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 10px;
-            width: 100%;
-            cursor: pointer;
+        
+        .feature-description {
             font-size: 14px;
-            transition: all 0.2s ease;
+            opacity: 0.8;
         }
-
-        .upload-btn:active {
-            transform: scale(0.98);
-            background: #3182ce;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .screen {
-            display: none;
-        }
-
-        .screen.active {
-            display: block;
-        }
-
-        .back-button {
-            background: none;
-            border: none;
-            color: #667eea;
-            font-size: 14px;
-            cursor: pointer;
-            padding: 10px 0;
-            margin-bottom: 15px;
+        
+        .buttons {
             display: flex;
-            align-items: center;
-            gap: 5px;
+            flex-direction: column;
+            gap: 15px;
         }
-
-        .history-item, .support-item {
-            padding: 15px;
-            border-bottom: 1px solid #e2e8f0;
-            background: #f8fafc;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
-        .support-contact {
-            text-align: center;
-            padding: 20px;
-            background: #ebf8ff;
-            border-radius: 12px;
-            margin: 15px 0;
-        }
-
-        .contact-username {
-            font-weight: bold;
-            color: #2b6cb0;
+        
+        .btn {
+            padding: 18px;
+            border: none;
+            border-radius: 15px;
             font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #00bcd4, #00e676);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .guarantee-badge {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(0, 230, 118, 0.2);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 230, 118, 0.5);
         }
     </style>
 </head>
 <body>
-    <!-- Главный экран -->
     <div class="container">
-        <div class="screen active" id="mainScreen">
-            <div class="header">
-                <h1>Оплата товара</h1>
-                <div class="time" id="currentTime"></div>
-            </div>
-
-            <div class="card">
-                <div class="product-info">
-                    <div class="product-name">БОТ MINES</div>
-                    <div class="product-price">Цена: обговаривается</div>
-                </div>
-
-                <div class="payment-details">
-                    <div class="bank-card">
-                        <div class="card-number">2200 1545 5176 6701</div>
-                        <div class="bank-name">АЛЬФА БАНК</div>
-                    </div>
-                    
-                    <div class="instructions">
-                        После оплаты отправьте скриншот чека в этом приложении
-                    </div>
-                </div>
-
-                <button class="pay-button" onclick="handlePayment()">
-                    Оплатить БОТ MINES
-                </button>
-
-                <div class="screenshot-section">
-                    <input type="file" id="screenshotInput" accept="image/*" class="hidden" onchange="handleScreenshotUpload(event)">
-                    <button class="upload-btn" onclick="document.getElementById('screenshotInput').click()">
-                        📎 Отправить скриншот чека
-                    </button>
+        <div class="header">
+            <div class="logo">SKYPAY</div>
+            <div class="subtitle">БЕЗОПАСНАЯ ОПЛАТА</div>
+        </div>
+        
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-text">
+                    <div class="feature-title">100% гарантия что платёж пройдёт</div>
                 </div>
             </div>
-
-            <div class="menu">
-                <div class="menu-item" onclick="showScreen('historyScreen')">
-                    <div class="menu-icon">📊</div>
-                    <div class="menu-text">История оплат</div>
-                    <div class="menu-arrow">›</div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">⏰</div>
+                <div class="feature-text">
+                    <div class="feature-title">24/7 поддержка</div>
                 </div>
-                <div class="menu-item" onclick="showScreen('supportScreen')">
-                    <div class="menu-icon">💬</div>
-                    <div class="menu-text">Поддержка</div>
-                    <div class="menu-arrow">›</div>
-                </div>
-                <div class="menu-item" onclick="showScreen('instructionsScreen')">
-                    <div class="menu-icon">📖</div>
-                    <div class="menu-text">Инструкция</div>
-                    <div class="menu-arrow">›</div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">💳</div>
+                <div class="feature-text">
+                    <div class="feature-title">Пополняете без комиссии с любого банка</div>
                 </div>
             </div>
         </div>
-
-        <!-- Экран истории оплат -->
-        <div class="screen" id="historyScreen">
-            <button class="back-button" onclick="showScreen('mainScreen')">
-                ← Назад
-            </button>
-            <div class="header">
-                <h1>История оплат</h1>
-            </div>
-            <div class="card">
-                <div class="history-item">
-                    <strong>БОТ MINES</strong><br>
-                    Статус: Ожидает оплаты<br>
-                    Время: --
-                </div>
-                <div class="instructions">
-                    Здесь будет отображаться история ваших платежей
-                </div>
-            </div>
+        
+        <div class="buttons">
+            <button class="btn btn-primary" onclick="goBack()">ВЕРНУТЬСЯ НА САЙТ</button>
+            <button class="btn btn-secondary" onclick="contactSupport()">НАПИСАТЬ В ПОДДЕРЖКУ</button>
         </div>
-
-        <!-- Экран поддержки -->
-        <div class="screen" id="supportScreen">
-            <button class="back-button" onclick="showScreen('mainScreen')">
-                ← Назад
-            </button>
-            <div class="header">
-                <h1>Поддержка</h1>
-            </div>
-            <div class="card">
-                <div class="support-contact">
-                    📞 Техническая поддержка<br>
-                    <span class="contact-username">@support_username</span>
-                </div>
-                <div class="support-item">
-                    <strong>Время работы:</strong><br>
-                    Круглосуточно 24/7
-                </div>
-                <div class="support-item">
-                    <strong>Среднее время ответа:</strong><br>
-                    5-15 минут
-                </div>
-            </div>
-        </div>
-
-        <!-- Экран инструкции -->
-        <div class="screen" id="instructionsScreen">
-            <button class="back-button" onclick="showScreen('mainScreen')">
-                ← Назад
-            </button>
-            <div class="header">
-                <h1>Инструкция</h1>
-            </div>
-            <div class="card">
-                <div class="instructions">
-                    <strong>Как совершить оплату:</strong><br><br>
-                    1. Нажмите "Оплатить БОТ MINES"<br>
-                    2. Переведите сумму на указанные реквизиты<br>
-                    3. Сделайте скриншот чека об оплате<br>
-                    4. Загрузите скриншот в этом приложении<br>
-                    5. Ожидайте активации товара<br><br>
-                    
-                    <strong>Время активации:</strong> 10-15 минут<br>
-                    <strong>Поддержка:</strong> @support_username
-                </div>
-            </div>
+        
+        <div class="guarantee-badge">
+            🔒 Ваши платежи защищены
         </div>
     </div>
 
     <script>
         // Инициализация Telegram Web App
-        const tg = window.Telegram.WebApp;
+        Telegram.WebApp.ready();
+        Telegram.WebApp.expand();
         
-        // Инициализация приложения
-        function initApp() {
-            tg.ready();
-            tg.expand();
-            tg.setHeaderColor('#667eea');
-            tg.setBackgroundColor('#667eea');
-            
-            console.log('Web App инициализирован');
-            console.log('User:', tg.initDataUnsafe.user);
+        function goBack() {
+            // Закрыть Web App или вернуться назад
+            Telegram.WebApp.close();
         }
-
-        // Обновление времени
-        function updateTime() {
-            const now = new Date();
-            const timeElements = document.querySelectorAll('#currentTime');
-            timeElements.forEach(element => {
-                element.textContent = now.toLocaleTimeString('ru-RU', { 
-                    hour: '2-digit', 
-                    minute: '2-digit' 
-                });
-            });
+        
+        function contactSupport() {
+            // Открыть чат с поддержкой
+            const supportUsername = 'ваша_поддержка'; // Замените на реальный username
+            window.open(`https://t.me/${supportUsername}`, '_blank');
         }
-
-        // Навигация по экранам
-        function showScreen(screenId) {
-            // Скрыть все экраны
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            
-            // Показать выбранный экран
-            document.getElementById(screenId).classList.add('active');
-            
-            // Обновить время на активном экране
-            updateTime();
+        
+        // Можно добавить информацию о пользователе
+        const user = Telegram.WebApp.initDataUnsafe.user;
+        if (user) {
+            console.log('Пользователь:', user.first_name, user.last_name);
         }
-
-        // Обработка оплаты
-        function handlePayment() {
-            const paymentData = {
-                action: 'payment_initiated',
-                product: 'БОТ MINES',
-                amount: 'negotiable',
-                timestamp: new Date().toISOString(),
-                user_id: tg.initDataUnsafe.user?.id,
-                username: tg.initDataUnsafe.user?.username
-            };
-            
-            // Виброотклик
-            if (tg.HapticFeedback) {
-                tg.HapticFeedback.impactOccurred('soft');
-            }
-            
-            // Отправка данных в бота
-            tg.sendData(JSON.stringify(paymentData));
-            
-            // Локльное уведомление
-            tg.showPopup({
-                title: '✅ Платеж инициирован',
-                message: 'Реквизиты скопированы. После оплаты загрузите скриншот чека.',
-                buttons: [{id: 'ok', type: 'default', text: 'OK'}]
-            });
-        }
-
-        // Загрузка скриншота
-        function handleScreenshotUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                // Проверка размера файла (макс 5MB)
-                if (file.size > 5 * 1024 * 1024) {
-                    tg.showPopup({
-                        title: '❌ Ошибка',
-                        message: 'Файл слишком большой. Максимальный размер: 5MB',
-                        buttons: [{id: 'ok', type: 'default', text: 'OK'}]
-                    });
-                    return;
-                }
-                
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const screenshotData = {
-                        action: 'screenshot_uploaded',
-                        filename: file.name,
-                        file_size: file.size,
-                        file_type: file.type,
-                        timestamp: new Date().toISOString(),
-                        user_id: tg.initDataUnsafe.user?.id,
-                        username: tg.initDataUnsafe.user?.username
-                    };
-                    
-                    // Виброотклик
-                    if (tg.HapticFeedback) {
-                        tg.HapticFeedback.impactOccurred('medium');
-                    }
-                    
-                    // Отправка данных в бота
-                    tg.sendData(JSON.stringify(screenshotData));
-                    
-                    // Уведомление пользователя
-                    tg.showAlert('✅ Скриншот загружен и отправлен в поддержку. Ожидайте проверки.');
-                    
-                    // Обновление истории
-                    updatePaymentHistory();
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // Обновление истории платежей
-        function updatePaymentHistory() {
-            const historyItem = document.querySelector('.history-item');
-            if (historyItem) {
-                historyItem.innerHTML = `
-                    <strong>БОТ MINES</strong><br>
-                    Статус: Ожидает проверки<br>
-                    Время: ${new Date().toLocaleTimeString('ru-RU')}
-                `;
-            }
-        }
-
-        // Обработка обратной связи от Telegram
-        tg.onEvent('viewportChanged', (event) => {
-            console.log('Viewport changed:', event);
-        });
-
-        tg.onEvent('themeChanged', () => {
-            console.log('Theme changed');
-        });
-
-        // Инициализация при загрузке
-        document.addEventListener('DOMContentLoaded', function() {
-            initApp();
-            updateTime();
-            setInterval(updateTime, 60000); // Обновлять время каждую минуту
-            
-            // Автоматическое обновление времени при смене экрана
-            const observer = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                        if (mutation.target.classList.contains('active')) {
-                            updateTime();
-                        }
-                    }
-                });
-            });
-            
-            document.querySelectorAll('.screen').forEach(screen => {
-                observer.observe(screen, { attributes: true });
-            });
-        });
-
-        // Резервная инициализация
-        setTimeout(() => {
-            if (!tg.initData) {
-                console.log('Резервная инициализация');
-                updateTime();
-            }
-        }, 1000);
     </script>
 </body>
 </html>
