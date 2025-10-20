@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SKYPAY - Оплата</title>
+    <title>Оплата БОТ MINES</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,23 +18,20 @@
             color: white;
             min-height: 100vh;
             padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         
         .container {
             max-width: 400px;
-            width: 100%;
-            text-align: center;
+            margin: 0 auto;
         }
         
         .header {
-            margin-bottom: 30px;
+            text-align: center;
+            margin-bottom: 25px;
         }
         
         .logo {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: bold;
             margin-bottom: 10px;
             background: linear-gradient(45deg, #00bcd4, #00e676);
@@ -42,51 +39,60 @@
             -webkit-text-fill-color: transparent;
         }
         
+        .product-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .product-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #00e676;
+        }
+        
+        .price {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
         .timer {
             background: rgba(255, 0, 0, 0.2);
             border: 2px solid rgba(255, 0, 0, 0.5);
             border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 25px;
-            font-size: 18px;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 16px;
             font-weight: bold;
+            text-align: center;
         }
         
-        .timer-warning {
-            color: #ff6b6b;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-        
-        .payment-card {
+        .requisites-card {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 25px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .payment-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #00e676;
-        }
-        
-        .requisites {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
             padding: 20px;
             margin-bottom: 20px;
-            text-align: left;
+            backdrop-filter: blur(10px);
+        }
+        
+        .requisites-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .requisite-item {
-            margin-bottom: 15px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
         }
         
         .requisite-label {
@@ -105,42 +111,62 @@
             background: rgba(0, 188, 212, 0.3);
             border: 1px solid #00bcd4;
             color: white;
-            padding: 8px 15px;
+            padding: 6px 12px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-        
-        .copy-btn:hover {
-            background: rgba(0, 188, 212, 0.5);
+            font-size: 11px;
+            margin-top: 8px;
         }
         
         .instructions {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
+            border-radius: 12px;
             padding: 15px;
-            margin-bottom: 25px;
-            text-align: left;
+            margin-bottom: 20px;
             font-size: 14px;
         }
         
-        .instructions ol {
-            padding-left: 20px;
+        .upload-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
         }
         
-        .instructions li {
-            margin-bottom: 8px;
+        .upload-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .upload-btn {
+            background: linear-gradient(45deg, #00bcd4, #00e676);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        
+        .file-name {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 10px;
         }
         
         .buttons {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
         
         .btn {
-            padding: 18px;
+            padding: 16px;
             border: none;
             border-radius: 15px;
             font-size: 16px;
@@ -167,9 +193,23 @@
         }
         
         .status {
+            text-align: center;
             margin-top: 15px;
             font-size: 14px;
-            opacity: 0.8;
+            opacity: 0.9;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .success-message {
+            background: rgba(0, 230, 118, 0.2);
+            border: 1px solid rgba(0, 230, 118, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -180,52 +220,79 @@
             <div>БЕЗОПАСНАЯ ОПЛАТА</div>
         </div>
         
-        <div class="timer">
-            ⏰ Время на оплату: <span id="countdown">15:00</span>
-            <div class="timer-warning">После 15 минут заявка аннулируется</div>
+        <div id="main-section">
+            <div class="product-card">
+                <div class="product-title">📌 Ваш товар: БОТ MINES</div>
+                <div class="price">Цена: обговаривается</div>
+                <div>Для оплаты нажмите кнопку ниже:</div>
+            </div>
+            
+            <div class="buttons">
+                <button class="btn btn-primary" onclick="showPaymentDetails()">📌 Оплатить БОТ MINES</button>
+            </div>
         </div>
         
-        <div class="payment-card">
-            <div class="payment-title">Ваши реквизиты для оплаты</div>
+        <div id="payment-section" class="hidden">
+            <div class="product-card">
+                <div class="product-title">📌 Вы выбрали: БОТ MINES</div>
+            </div>
             
-            <div class="requisites">
+            <div class="timer">
+                ⏰ Время на оплату: <span id="countdown">15:00</span>
+            </div>
+            
+            <div class="requisites-card">
+                <div class="requisites-title">✔ Реквизиты для оплаты:</div>
+                
                 <div class="requisite-item">
                     <div class="requisite-label">Номер карты</div>
-                    <div class="requisite-value" id="card-number">2200 1234 5678 9012</div>
+                    <div class="requisite-value" id="card-number">2269 1545 5176 6791</div>
                     <button class="copy-btn" onclick="copyToClipboard('card-number')">Скопировать</button>
                 </div>
                 
                 <div class="requisite-item">
-                    <div class="requisite-label">Получатель</div>
-                    <div class="requisite-value" id="recipient">Иван Иванов</div>
-                    <button class="copy-btn" onclick="copyToClipboard('recipient')">Скопировать</button>
-                </div>
-                
-                <div class="requisite-item">
-                    <div class="requisite-label">Сумма к оплате</div>
-                    <div class="requisite-value" id="amount">1 500 ₽</div>
-                    <button class="copy-btn" onclick="copyToClipboard('amount')">Скопировать</button>
+                    <div class="requisite-label">Банк</div>
+                    <div class="requisite-value" id="bank">АЛЬФА БАНК</div>
+                    <button class="copy-btn" onclick="copyToClipboard('bank')">Скопировать</button>
                 </div>
             </div>
             
             <div class="instructions">
-                <strong>Инструкция:</strong>
-                <ol>
-                    <li>Скопируйте реквизиты выше</li>
-                    <li>Переведите точную сумму на указанную карту</li>
-                    <li>После оплаты нажмите "Я оплатил"</li>
-                    <li>Ожидайте подтверждения (1-3 минуты)</li>
-                </ol>
+                После оплаты отправьте скриншот чека.
+            </div>
+            
+            <div class="upload-section">
+                <div class="upload-title">📌 Отправить чек</div>
+                <input type="file" id="receipt-file" accept="image/*" class="hidden" onchange="handleFileSelect(this)">
+                <button class="upload-btn" onclick="document.getElementById('receipt-file').click()">
+                    📎 Выбрать скриншот чека
+                </button>
+                <div class="file-name" id="file-name"></div>
+            </div>
+            
+            <div class="buttons">
+                <button class="btn btn-primary" onclick="sendToAdmin()">📌 Отправить чек админу</button>
+                <button class="btn btn-secondary" onclick="contactSupport()">📞 Поддержка</button>
             </div>
         </div>
         
-        <div class="buttons">
-            <button class="btn btn-primary" onclick="confirmPayment()">✅ Я ОПЛАТИЛ</button>
-            <button class="btn btn-secondary" onclick="contactSupport()">📞 ПОДДЕРЖКА</button>
+        <div id="success-section" class="hidden">
+            <div class="success-message">
+                <div class="product-title">✅ Чек отправлен админу</div>
+                <div>Ожидайте подтверждения!</div>
+                <div style="margin-top: 15px; font-size: 12px; opacity: 0.8;">
+                    ID: <span id="user-id">1975553922</span>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <button class="btn btn-primary" onclick="closeApp()">✅ Готово</button>
+                <button class="btn btn-secondary" onclick="showPaymentDetails()">🔄 Новый платёж</button>
+            </div>
         </div>
         
         <div class="status">
-            🔒 Статус: <span id="payment-status">Ожидаем оплату...</span>
+            🔒 Статус: <span id="payment-status">Выберите товар для оплаты</span>
         </div>
     </div>
 
@@ -234,44 +301,84 @@
         Telegram.WebApp.ready();
         Telegram.WebApp.expand();
         
-        // Таймер обратного отсчета 15 минут
-        let timeLeft = 15 * 60; // 15 минут в секундах
+        // Получаем информацию о пользователе
+        const user = Telegram.WebApp.initDataUnsafe.user;
+        if (user) {
+            document.getElementById('user-id').textContent = user.id;
+            console.log('Пользователь:', user.first_name, 'ID:', user.id);
+        }
         
-        function updateTimer() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            document.getElementById('countdown').textContent = 
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        let timeLeft = 15 * 60; // 15 минут
+        let timerInterval;
+        let selectedFile = null;
+        
+        // Показать детали оплаты
+        function showPaymentDetails() {
+            document.getElementById('main-section').classList.add('hidden');
+            document.getElementById('payment-section').classList.remove('hidden');
+            document.getElementById('success-section').classList.add('hidden');
+            document.getElementById('payment-status').textContent = 'Ожидаем оплату...';
             
-            if (timeLeft <= 0) {
-                document.getElementById('payment-status').textContent = '⏰ Время вышло! Заявка аннулирована';
-                document.getElementById('payment-status').style.color = '#ff6b6b';
-            } else {
-                timeLeft--;
-                setTimeout(updateTimer, 1000);
-            }
+            // Запуск таймера
+            startTimer();
         }
         
         // Запуск таймера
-        updateTimer();
+        function startTimer() {
+            timeLeft = 15 * 60;
+            clearInterval(timerInterval);
+            
+            timerInterval = setInterval(function() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                document.getElementById('countdown').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('payment-status').textContent = '⏰ Время вышло!';
+                    document.getElementById('payment-status').style.color = '#ff6b6b';
+                } else {
+                    timeLeft--;
+                }
+            }, 1000);
+        }
         
-        // Функция копирования в буфер обмена
+        // Обработка выбора файла
+        function handleFileSelect(input) {
+            if (input.files && input.files[0]) {
+                selectedFile = input.files[0];
+                document.getElementById('file-name').textContent = `Выбран: ${selectedFile.name}`;
+                document.getElementById('payment-status').textContent = 'Файл готов к отправке';
+            }
+        }
+        
+        // Отправка админу
+        function sendToAdmin() {
+            if (!selectedFile) {
+                alert('Пожалуйста, выберите скриншот чека');
+                return;
+            }
+            
+            document.getElementById('payment-status').textContent = 'Отправляем чек админу...';
+            
+            // Имитация отправки
+            setTimeout(function() {
+                document.getElementById('payment-section').classList.add('hidden');
+                document.getElementById('success-section').classList.remove('hidden');
+                document.getElementById('payment-status').textContent = 'Чек отправлен! Ожидайте подтверждения';
+                document.getElementById('payment-status').style.color = '#00e676';
+                
+                clearInterval(timerInterval);
+            }, 2000);
+        }
+        
+        // Копирование в буфер обмена
         function copyToClipboard(elementId) {
             const text = document.getElementById(elementId).textContent;
             navigator.clipboard.writeText(text).then(function() {
                 alert('Скопировано: ' + text);
             });
-        }
-        
-        // Подтверждение оплаты
-        function confirmPayment() {
-            document.getElementById('payment-status').textContent = '✅ Оплата проверяется...';
-            document.getElementById('payment-status').style.color = '#00e676';
-            
-            // Здесь можно добавить логику проверки оплаты
-            setTimeout(() => {
-                document.getElementById('payment-status').textContent = '✅ Оплата подтверждена!';
-            }, 2000);
         }
         
         // Связь с поддержкой
@@ -280,10 +387,9 @@
             window.open(`https://t.me/${supportUsername}`, '_blank');
         }
         
-        // Информация о пользователе Telegram
-        const user = Telegram.WebApp.initDataUnsafe.user;
-        if (user) {
-            console.log('Пользователь:', user.first_name);
+        // Закрыть приложение
+        function closeApp() {
+            Telegram.WebApp.close();
         }
     </script>
 </body>
