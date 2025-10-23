@@ -207,7 +207,7 @@ ottom: 15px;
             
             <div class="buttons">
                 <button class="btn btn-primary" id="send-btn" onclick="sendToAdmin()">📌 Отправить чек админу</button>
-                <button class="btn btn-secondary" onclick="contactSupport()">📞 Поддержка</button>
+                <button class="btn btn-secondary" onclick="https://t.me/artem4514">📞 Поддержка</button>
             </div>
         </div>
         
